@@ -18,7 +18,6 @@ function TableRow(props) {
     })
   }
   function removeRow() { }
-  function editRow() { }
   getCellArray();
   return (
     <tr>
