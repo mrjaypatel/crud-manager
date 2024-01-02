@@ -10,14 +10,11 @@ function CrudManager(props) {
     const readBlock = props.data.readBlock;
     const editBlock = props.data.editBlock;
     const createBlock = props.data.createBlock;
-
-
     const manage = props.manage;
     const [apiData, setApiData] = useState([]);
     const [dataKeys, setDataKeys] = useState([]);
     const header = { "Access-Control-Allow-Origin": "*" }
     function getData() {
-
         axios.get(props.api, header).then((result) => {
             setDataKeys(Object.keys(result.data[0]));
             setApiData(result.data);
@@ -25,41 +22,31 @@ function CrudManager(props) {
             console.error(err);
         });
     }
-
     useEffect(() => {
         getData();
     }, [])
-
     function allowedToCreate(data) {
         return !Object.values(createBlock).includes(data);
     }
-
     function allowedToRead(data) {
         return !Object.values(readBlock).includes(data);
     }
-
     const [state, setState] = React.useState({
         top: false,
         left: false,
         bottom: false,
         right: false,
     });
-
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
-
         setState({ ...state, [anchor]: open });
     };
-
-
     return (
         <div className='row'>
-
             {['right'].map((anchor) => (
                 <React.Fragment key={anchor}>
-
                     <Button onClick={toggleDrawer(anchor, true)}>Create Record</Button>
                     <Drawer
                         anchor={anchor}
@@ -80,13 +67,11 @@ function CrudManager(props) {
                     </Drawer>
                 </React.Fragment>
             ))}
-
             <div className='col-md-12'>
                 <table className='table'>
                     <thead>
                         <tr>
                             {TableHeaders.map((data, index) => {
-
                                 return (allowedToRead(data)) ? (<th key={index}>{data}</th>) : ""
                             })}
                             {
